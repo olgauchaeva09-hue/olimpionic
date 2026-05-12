@@ -1,0 +1,7 @@
+{% load static %}
+
+<div class="topic-card" data-topic-id="{{ topic_id }}">
+    <div class="topic-card-label">Тема</div>
+    <div class="topic-card-title">{{ title }}</div>
+    <a href="{% url 'cards_materials' %}?topic_id={{ topic_id }}" class="topic-card-link">Перейти →</a>
+</div>

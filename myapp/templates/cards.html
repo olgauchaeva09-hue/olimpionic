@@ -1,0 +1,31 @@
+{% load static %}
+
+<div class="material-card" data-card-id="{{ card.id }}">
+    <div class="card-header">
+        <div class="xp-badge {% if card.is_solved or card.is_read %}active{% endif %}">
+            <span>+{{ card.xp}} XP</span>
+        </div>
+        <div class="action-buttons">
+            <button class="action-btn complete {% if card.is_solved or card.is_read %}active{% endif %}" 
+                    data-action="complete" title="Отметить как выполненное"></button>
+            <button class="action-btn planned {% if card.is_planned %}active{% endif %}" 
+                    data-action="planned" title="Отметить как запланированное"></button>
+            <button class="action-btn task {% if card.is_task %}active{% endif %}" 
+                    data-action="task" title="Переместить в задачи"></button>
+            <button class="action-btn favorite {% if card.is_favorite %}active{% endif %}" 
+                    data-action="favorite" title="Отметить как избранное"></button>
+        </div>
+    </div>
+    <div class="material-title">{{ card.title }}</div>
+    <div class="material-meta">
+        <span class="meta-tag">Тип: {{ card.type}}</span>
+        {% if card.source %}
+            <span class="meta-tag">Олимпиада: {{ card.source }}</span>
+        {% endif %}
+    </div>
+    {% if card.link %}
+        <div class="material-link">
+            <a href="{{ card.link }}" target="_blank">{{ card.link }}</a>
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Материалы для подготовки{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/materials1.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="materials-container">
+    <div class="accordion-grid">
+        {% for subject in subjects %}
+        <details class="accordion">
+            <summary>
+                <span class="accordion-title">
+                    <h3>{{ subject.subject_name }}</h3>
+                </span>
+                <span class="accordion-icon"></span>
+            </summary>
+            <div class="accordion-body">
+                <div class="topics-list">
+                    {% for topic in subject.topics.all %}
+                        <a href="{% url 'cards_materials' %}?topic_id={{ topic.id }}" 
+                           class="topic-radio-link"
+                           data-topic-id="{{ topic.id }}">
+                            <span class="radio-circle"></span>
+                            <span class="topic-name">{{ topic.topic_name }}</span>
+                        </a>
+                    {% empty %}
+                        <p>Нет доступных тем</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </details>
+        {% empty %}
+            <p>Предметы не найдены</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,195 @@
+/* === benefits.css === */
+/* Адаптивные стили для страницы льгот при поступлении */
+
+.benefits-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    width: 100%;
+}
+
+/* --- Заголовки --- */
+.page-title {
+    color: var(--dark-blue);
+    font-size: 2rem; /* 32px */
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.page-subtitle {
+    color: #9B9B9B;
+    font-size: 1.25rem; /* 20px */
+    font-weight: 400;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 40px;
+}
+
+/* --- Список университетов --- */
+.universities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Элемент списка */
+.university-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(192, 224, 255, 0.3);
+    transition: background-color var(--transition);
+}
+
+.university-item:hover {
+    background-color: rgba(192, 224, 255, 0.05);
+}
+
+/* Название университета */
+.university-name {
+    color: var(--dark-blue);
+    font-size: 1.5rem; /* 24px */
+    font-weight: 400;
+    line-height: 1.4;
+    flex: 1;
+}
+
+/* Кнопка скачивания */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 2px solid var(--dark-blue);
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.download-btn:hover {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+}
+
+.download-btn:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.download-btn img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    transition: filter var(--transition);
+}
+
+.download-btn span {
+    color: #9B9B9B;
+    font-size: 0.9375rem; /* 15px */
+    font-weight: 400;
+    transition: color var(--transition);
+}
+
+.download-btn:hover span {
+    color: var(--white);
+}
+
+.download-btn:active {
+    transform: scale(0.98);
+}
+
+.download-btn:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+}
+
+/* --- Адаптивность --- */
+@media screen and (max-width: 1024px) {
+    .benefits-container {
+        padding: 24px 30px;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .university-name {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .benefits-container {
+        padding: 20px 20px;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1rem;
+        margin-bottom: 24px;
+    }
+    
+    .university-item {
+        padding: 16px 0;
+        gap: 16px;
+    }
+    
+    .university-name {
+        font-size: 1.1rem;
+    }
+    
+    .download-btn {
+        padding: 8px 16px;
+    }
+    
+    .download-btn img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .download-btn span {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .benefits-container {
+        padding: 16px 16px;
+    }
+    
+    .page-title {
+        font-size: 1.3rem;
+    }
+    
+    .university-item {
+        padding: 12px 0;
+        gap: 12px;
+    }
+    
+    .university-name {
+        font-size: 1rem;
+    }
+    
+    .download-btn {
+        padding: 6px 12px;
+    }
+    
+    .download-btn img {
+        width: 18px;
+        height: 18px;
+    }
+}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; padding: 30px; border: 2px solid var(--blue); border-radius: 16px; background: var(--white);">
+    <h2 style="color: var(--dark-blue); text-align: center; margin-bottom: 20px;">Регистрация</h2>
+    
+    {% if error %}
+        <div style="background: #ffe6e6; color: #cc0000; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 14px;">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="username" style="color: var(--dark-blue); font-size: 14px;">Имя пользователя:</label>
+            <input type="text" name="username" id="username" required 
+                   style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid var(--blue); border-radius: 8px; font-family: 'Geologica', sans-serif;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="email" style="color: var(--dark-blue); font-size: 14px;">Почта:</label>
+            <input type="email" name="email" id="email" required 
+                   style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid var(--blue); border-radius: 8px; font-family: 'Geologica', sans-serif;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="password1" style="color: var(--dark-blue); font-size: 14px;">Пароль:</label>
+            <input type="password" name="password1" id="password1" required 
+                   style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid var(--blue); border-radius: 8px; font-family: 'Geologica', sans-serif;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="password2" style="color: var(--dark-blue); font-size: 14px;">Повторите пароль:</label>
+            <input type="password" name="password2" id="password2" required 
+                   style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid var(--blue); border-radius: 8px; font-family: 'Geologica', sans-serif;">
+        </div>
+        <button type="submit" style="width: 100%; padding: 12px; background: var(--dark-blue); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'Geologica', sans-serif;">
+            Зарегистрироваться
+        </button>
+    </form>
+    <p style="text-align: center; margin-top: 15px; font-size: 14px; color: #9b9b9b;">
+        Уже есть аккаунт? <a href="/login/" style="color: var(--dark-blue);">Войти</a>
+    </p>
+</div>
+{% endblock %}

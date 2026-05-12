@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Добро пожаловать{% endblock %}
+
+{% block extra_css %}
+<style>
+    .welcome-page {
+        max-width: 700px;
+        margin: 60px auto;
+        padding: 40px;
+        text-align: center;
+    }
+
+    .welcome-title {
+        font-size: 36px;
+        font-weight: 600;
+        color: var(--dark-blue);
+        margin-bottom: 24px;
+    }
+
+    .welcome-text {
+        font-size: 18px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.7);
+        line-height: 1.6;
+        margin-bottom: 12px;
+        text-align: left;
+    }
+
+    .welcome-text strong {
+        color: var(--dark-blue);
+    }
+
+    .welcome-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+
+    .welcome-btn {
+        display: inline-block;
+        padding: 14px 36px;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: 600;
+        text-decoration: none;
+        font-family: 'Geologica', sans-serif;
+        transition: all 0.2s ease;
+        border: 2px solid var(--dark-blue);
+    }
+
+    .welcome-btn.primary {
+        background: var(--dark-blue);
+        color: var(--white);
+    }
+
+    .welcome-btn.primary:hover {
+        background: #6a7cc0;
+    }
+
+    .welcome-btn.secondary {
+        background: var(--white);
+        color: var(--dark-blue);
+    }
+
+    .welcome-btn.secondary:hover {
+        background: #f0f4ff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="welcome-page">
+    <h1 class="welcome-title">Сайт для подготовки к олимпиадам</h1>
+
+    <p class="welcome-text">
+        <strong>Что это?</strong> — здесь ты найдёшь материалы для подготовки к олимпиадам по разным предметам, 
+        сможешь планировать занятия и отслеживать прогресс.
+    </p>
+
+    <p class="welcome-text">
+        <strong>Для кого?</strong> — для школьников, которые хотят поступить в вуз по БВИ или получить 100 баллов за ЕГЭ.
+    </p>
+
+    <p class="welcome-text">
+        <strong>Как пользоваться?</strong>
+    </p>
+    <p class="welcome-text">
+        1. Зарегистрируйся или войди в аккаунт.<br>
+        2. В разделе «Расписание» выбери предметы и темы для изучения.<br>
+        3. В «Материалах» ищи статьи, видео, задачи по нужной теме.<br>
+        4. Отмечай выполненные задания и копи XP.<br>
+        5. Следи за олимпиадами и сроками в «Поступление БВИ».
+    </p>
+
+    <div class="welcome-buttons">
+        <a href="{% url 'register' %}" class="welcome-btn primary">Зарегистрироваться</a>
+        <a href="{% url 'login' %}" class="welcome-btn secondary">Войти</a>
+    </div>
+</div>
+{% endblock %}

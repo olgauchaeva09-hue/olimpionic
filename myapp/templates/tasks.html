@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мои задачи{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/list.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/cards.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="xp-card">
+    <div class="xp-card-left">
+        <div class="xp-icon">
+            {% if current_level_icon %}
+                <img src="{{ current_level_icon }}" alt="{{ current_level }}" class="xp-img">
+            {% else %}
+                🏅
+            {% endif %}
+        </div>
+    </div>
+    <div class="xp-card-right">
+        <div class="xp-level-name">{{ current_level }}</div>
+        <div class="xp-stats">
+            <span class="xp-amount">{{ xp }} XP</span>
+            <span class="xp-separator">•</span>
+            <span class="xp-level">{{ current_level_number }} уровень</span>
+        </div>
+        <div class="xp-title">{{ xp_for_next }} XP до следующего уровня</div>
+    </div>
+</div>
+
+<div class="materials-list">
+    {% if topics %}
+        {% for topic in topics %}
+            {% include 'topics.html' with title=topic.title topic_id=topic.id %}
+        {% endfor %}
+    {% endif %}
+    
+    {% if cards %}
+        {% for card in cards %}
+            {% include 'cards.html' with card=card %}
+        {% endfor %}
+    {% endif %}
+    
+    {% if not cards and not topics %}
+        <div class="empty-state">
+            <p>У вас пока нет задач</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

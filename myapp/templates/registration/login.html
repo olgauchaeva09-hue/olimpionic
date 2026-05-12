@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; padding: 30px; border: 2px solid var(--blue); border-radius: 16px; background: var(--white);">
+    <h2 style="color: var(--dark-blue); text-align: center; margin-bottom: 20px;">Вход в систему</h2>
+    
+    {% if form.errors %}
+        <div style="background: #ffe6e6; color: #cc0000; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 14px;">
+            Неверная почта или пароль.
+        </div>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <div style="margin-bottom: 15px;">
+            <label for="username" style="color: var(--dark-blue); font-size: 14px;">Почта:</label>
+            <input type="email" name="username" id="username" required 
+                   style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid var(--blue); border-radius: 8px; font-family: 'Geologica', sans-serif;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="password" style="color: var(--dark-blue); font-size: 14px;">Пароль:</label>
+            <input type="password" name="password" id="password" required 
+                   style="width: 100%; padding: 10px; margin-top: 5px; border: 2px solid var(--blue); border-radius: 8px; font-family: 'Geologica', sans-serif;">
+        </div>
+        <button type="submit" style="width: 100%; padding: 12px; background: var(--dark-blue); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'Geologica', sans-serif;">
+            Войти
+        </button>
+    </form>
+    <p style="text-align: center; margin-top: 15px; font-size: 14px; color: #9b9b9b;">
+        Нет аккаунта? <a href="/register/" style="color: var(--dark-blue);">Зарегистрироваться</a>
+    </p>
+</div>
+{% endblock %}

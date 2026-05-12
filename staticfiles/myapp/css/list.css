@@ -1,0 +1,238 @@
+.materials-list {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0 24px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 18px;
+    justify-content: flex-start;
+    margin-left: 28px;
+    padding-left: 28px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--blue);
+}
+
+.empty-state p {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.empty-state .btn-link {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--dark-blue);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.empty-state .btn-link:hover {
+    background: #6a7cc0;
+    transform: translateY(-2px);
+}
+
+.xp-card {
+    width: auto;
+    max-width: 400px;
+    min-width: 340px;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 24px 0 8px 50px;
+}
+
+.xp-card-left {
+    flex-shrink: 0;
+}
+
+.xp-icon {
+    width: 80px;
+    height: 80px;
+    background: #fceaea;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.xp-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.xp-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+.xp-card-right {
+    flex: 1;
+    min-width: 0;
+}
+
+.xp-level-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 6px;
+}
+
+.xp-stats {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 12px;
+}
+
+.xp-amount {
+    font-weight: 600;
+}
+
+.xp-separator {
+    color: #9b9b9b;
+}
+
+.xp-level {
+    font-weight: 400;
+}
+
+.xp-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #9b9b9b;
+    white-space: nowrap;
+}
+
+/* === Кнопки навигации === */
+.step-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    margin-bottom: 40px;
+    padding: 24px 0 0;
+    border-top: 2px solid rgba(192, 224, 255, 0.4);
+}
+
+.back-btn,
+.confirm-btn {
+    background: none;
+    border: none;
+    color: var(--dark-blue);
+    font-size: 22px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Geologica', sans-serif;
+    padding: 10px 20px;
+    transition: opacity 0.2s;
+}
+
+.back-btn:hover,
+.confirm-btn:hover {
+    opacity: 0.7;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 768px) {
+    .materials-list {
+        padding: 20px 16px;
+        gap: 12px;
+        margin-left: 0;
+    }
+    
+    .xp-card {
+        width: 300px;
+        max-width: 300px;
+        min-width: 300px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        margin: 20px 16px 8px;
+    }
+    
+    .xp-level-name {
+        font-size: 18px;
+    }
+    
+    .xp-stats {
+        font-size: 14px;
+    }
+    
+    .xp-title {
+        font-size: 12px;
+        white-space: normal;
+    }
+    
+    .step-buttons {
+        padding: 16px 16px 0;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .materials-list {
+        padding: 16px 12px;
+        gap: 10px;
+    }
+    
+    .xp-card {
+        width: 300px;
+        max-width: 300px;
+        min-width: 300px;
+        margin: 16px 12px 8px;
+    }
+    
+    .xp-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .xp-level-name {
+        font-size: 16px;
+    }
+    
+    .xp-stats {
+        font-size: 13px;
+    }
+    
+    .xp-title {
+        font-size: 11px;
+    }
+    
+    .material-title {
+        font-size: 16px;
+    }
+    
+    .step-buttons {
+        padding: 12px 12px 0;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .back-btn,
+    .confirm-btn {
+        font-size: 18px;
+        padding: 8px 14px;
+    }
+}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Поступление БВИ и 100 баллов за ЕГЭ{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/benefits.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="benefits-container">
+    <h1 class="page-title">Льготы при поступлении</h1>
+    <p class="page-subtitle">Скачивайте PDF-файлы с перечнем олимпиад, котирующихся в выбранных вами ВУЗах</p>
+    
+    <div class="universities-list">
+        {% for university in universities %}
+            <div class="university-item">
+                <img src="{% static 'myapp/images/ellipse.png' %}" alt="Скачать">
+                <span class="university-name">{{ university.university_name }}</span>
+                <a href="{{ university.link }}" class="download-btn" download title="Скачать PDF">
+                    <img src="{% static 'myapp/images/download.png' %}" alt="Скачать">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

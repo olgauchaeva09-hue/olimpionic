@@ -1,0 +1,149 @@
+/* === planned_step3.css === */
+/* Адаптивные стили для страницы выбора предметов и тем */
+
+.subjects-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    width: 100%;
+}
+
+/* --- Заголовки --- */
+.page-title {
+    color: var(--dark-blue);
+    font-size: 2rem; /* 32px */
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.page-subtitle {
+    color: #9B9B9B;
+    font-size: 1.25rem; /* 20px */
+    font-weight: 400;
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
+
+/* --- Сетка предметов --- */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 40px;
+    margin-bottom: 48px;
+}
+
+/* Карточка предмета */
+.subject-card {
+    break-inside: avoid;
+}
+
+.subject-title {
+    color: var(--dark-blue);
+    font-size: 1.625rem; /* 26px */
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(192, 224, 255, 0.4);
+}
+
+/* Список тем */
+.topics-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Элемент с чекбоксом */
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background-color var(--transition);
+    padding: 4px 0;
+}
+
+.checkbox-item:hover {
+    background-color: rgba(192, 224, 255, 0.05);
+}
+
+/* Кастомный чекбокс */
+.checkbox-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 23px;
+    height: 23px;
+    border: 2px solid var(--dark-blue);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: background-color var(--transition), border-color var(--transition);
+}
+
+.checkbox-item input[type="checkbox"]:hover {
+    border-color: #6A80C0;
+    background-color: rgba(143, 160, 216, 0.1);
+}
+
+.checkbox-item input[type="checkbox"]:checked {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+}
+
+.checkbox-item input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid var(--white);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-item input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--dark-blue);
+    outline-offset: 2px;
+}
+
+/* Текст темы */
+.checkbox-text {
+    color: #9B9B9B;
+    font-size: 1.125rem; /* 18px */
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* === Кнопки навигации === */
+.step-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    margin-bottom: 40px;
+    padding: 24px 0 0;
+    border-top: 2px solid rgba(192, 224, 255, 0.4);
+}
+
+.back-btn,
+.confirm-btn {
+    background: none;
+    border: none;
+    color: var(--dark-blue);
+    font-size: 22px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Geologica', sans-serif;
+    padding: 10px 20px;
+    transition: opacity 0.2s;
+}
+
+.back-btn:hover,
+.confirm-btn:hover {
+    opacity: 0.7;
+}

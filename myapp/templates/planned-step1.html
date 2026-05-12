@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Расписание - ВУЗы и направления{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/planned_step1.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'planned_step1' %}">
+    {% csrf_token %}
+    <div class="planner-container">
+        <h1 class="page-title">ВУЗы и направления обучения</h1>
+        <p class="page-subtitle">Отметьте актуальное для вас, чтобы настроить страницу планирования</p>
+        <div class="accordion-grid">
+            {% for university in universities %}
+            <details class="accordion">
+                <summary>
+                    <span class="accordion-title">
+                        <h3>{{ university.university_name }}</h3>
+                    </span>
+                    <span class="accordion-icon"></span>
+                </summary>
+                <div class="accordion-body">
+                    <div class="topics-list">
+                        {% for direction in university.direction.all %}
+                            <label class="checkbox-label">
+                                <input type="checkbox" 
+                                     name="directions" 
+                                     value="{{ direction.id }}">
+                                {{ direction.direction_name }}
+                            </label>
+                        {% empty %}
+                            <p>Нет доступных направлений</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </details>
+            {% empty %}
+                <p>направления не найдены</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="step-buttons">
+        <button type="button" class="back-btn" onclick="history.back()">← Назад</button>
+        <button type="submit" class="confirm-btn">Далее →</button>
+    </div>
+</form>
+{% endblock %}

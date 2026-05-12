@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Расписание - Темы{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/planned_step3.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'planned_step3' %}">
+    {% csrf_token %}
+    
+    <div class="subjects-container">
+        <h1 class="page-title">Предметы и темы</h1>
+        <p class="page-subtitle">Отметьте актуальное для вас, чтобы настроить страницу планирования</p>
+    
+        <div class="subjects-grid">
+            {% for subject in subjects %}
+                <div class="subject-card">
+                    <h2 class="subject-title">{{ subject.subject_name }}</h2>
+                    <div class="topics-list">
+                        {% for topic in subject.filtered_topics %}
+                            <label class="checkbox-item">
+                                <input type="checkbox" 
+                                       name="topics" 
+                                       value="{{ topic.id }}">
+                                <span class="checkbox-text">{{ topic.topic_name }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="step-buttons">
+            <button type="button" class="back-btn" onclick="history.back()">← Назад</button>
+            <button type="submit" class="confirm-btn">Далее →</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

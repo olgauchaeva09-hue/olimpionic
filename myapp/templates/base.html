@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'myapp/css/main.css' %}">
+    <link rel="icon" href="{% static 'myapp/images/favicon.ico' %}" type="image/x-icon">
+    <title>{% block title %}Olympionic{% endblock %}</title>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    {% csrf_token %}
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <img src="{% static 'myapp/images/logo.png' %}" alt="Логотип" class="logo-img">
+            </div>
+            <div class="header-bottom-row">
+                <button class="burger-btn" id="burger-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="search-wrapper">
+                    <form class="search-form" action="{% url 'cards_materials' %}" method="get">
+                        <div class="search-input-wrapper">
+                            <input type="text" 
+                                  name="q" 
+                                  placeholder="Найти материалы" 
+                                  class="search-input"
+                                  value="{{ request.GET.q }}">
+                            <button class="search-button"><img src="{% static 'myapp/images/search.png' %}" alt="Поиск"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="user-icons">
+                    <div class="notification-wrapper">
+                        <button class="icon-link notification-btn" aria-label="Уведомления" id="notification-btn">
+                            <img src="{% static 'myapp/images/notifications.png' %}" alt="Уведомления" class="icon">
+                            <span class="notification-badge" id="notification-badge"></span>
+                        </button>
+                        <div class="notification-dropdown" id="notification-dropdown" style="display: none;">
+                            <div class="notification-header">
+                                <span class="notification-title">Уведомления</span>
+                            </div>
+                            <div class="notification-list" id="notification-list">
+                                <div class="notification-loading">Загрузка...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'profile' %}" class="icon-link">
+                        <img src="{% static 'myapp/images/profile-icon.png' %}" alt="Профиль" class="icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="{% url 'tasks' %}" 
+                class="{% if request.resolver_match.url_name == 'tasks' %}active{% endif %}">Мои задачи</a></li>
+                <li><a href="{% url 'planned_step1' %}" 
+                class="{% if 'planned' in request.resolver_match.url_name %}active{% endif %}">Расписание</a></li>
+                <li><a href="{% url 'materials' %}" 
+                class="{% if 'materials' in request.resolver_match.url_name %}active{% endif %}">Материалы для подготовки</a></li>
+                <li><a href="{% url 'olympiads' %}" 
+                class="{% if request.resolver_match.url_name == 'olympiads' %}active{% endif %}">Поступление БВИ и 100 баллов</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Боковое меню для телефонов -->
+    <div class="side-menu-overlay" id="side-menu-overlay"></div>
+    <div class="side-menu" id="side-menu">
+        <div class="side-menu-close">
+            <button id="side-menu-close-btn">&times;</button>
+        </div>
+        <ul class="nav-list">
+            <li><a href="{% url 'tasks' %}" class="{% if request.resolver_match.url_name == 'tasks' %}active{% endif %}">Мои задачи</a></li>
+            <li><a href="{% url 'planned_step1' %}" class="{% if 'planned' in request.resolver_match.url_name %}active{% endif %}">Расписание</a></li>
+            <li><a href="{% url 'materials' %}" class="{% if 'materials' in request.resolver_match.url_name %}active{% endif %}">Материалы для подготовки</a></li>
+            <li><a href="{% url 'olympiads' %}" class="{% if request.resolver_match.url_name == 'olympiads' %}active{% endif %}">Поступление БВИ и 100 баллов</a></li>
+        </ul>
+    </div>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script>
+    const burgerBtn = document.getElementById('burger-btn');
+    const sideMenu = document.getElementById('side-menu');
+    const overlay = document.getElementById('side-menu-overlay');
+    const closeBtn = document.getElementById('side-menu-close-btn');
+
+    burgerBtn.addEventListener('click', () => {
+        sideMenu.classList.toggle('open');
+        overlay.classList.toggle('open');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        sideMenu.classList.remove('open');
+        overlay.classList.remove('open');
+    });
+
+    overlay.addEventListener('click', () => {
+        sideMenu.classList.remove('open');
+        overlay.classList.remove('open');
+    });
+    </script>
+
+    {% block extra_js %}
+        <script src="{% static 'myapp/js/utils.js' %}"></script>
+        <script src="{% static 'myapp/js/notifications.js' %}"></script>
+        <script src="{% static 'myapp/js/card.js' %}"></script>
+    {% endblock %}
+  </body>
+</html>

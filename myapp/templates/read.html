@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Изученный материал{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/list.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/cards.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="materials-list">
+    {% if cards %}
+        {% for card in cards %}
+            {% include 'cards.html' with card=card %}
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>У вас пока нет изученных материалов</p>
+        </div>
+    {% endif %}
+</div>
+<div class="step-buttons">
+    <button type="button" class="back-btn" onclick="history.back()">← Назад</button>
+</div>
+{% endblock %}

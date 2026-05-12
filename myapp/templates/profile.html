@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+    <div class="profile-card">
+        <div class="profile-avatar">
+            {% if user.icon %}
+                <img src="{{ user.icon.url }}" alt="Аватар" class="avatar-img" id="avatar-img">
+            {% else %}
+                <img src="{% static 'myapp/images/default_avatar.png' %}" alt="Аватар" class="avatar-img" id="avatar-img">
+            {% endif %}
+            <button class="edit-avatar-btn" id="edit-avatar-btn">
+                <img src="{% static 'myapp/images/pencil.png' %}" alt="✎">
+            </button>
+            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        </div>
+
+        <div class="profile-name-wrapper">
+            <h2 class="profile-name" id="profile-name">{{ user.username }}</h2>
+            <button class="edit-name-btn" id="edit-name-btn">
+                <img src="{% static 'myapp/images/pencil.png' %}" alt="✎">
+            </button>
+        </div>
+
+        <div class="edit-name-form" id="edit-name-form" style="display: none;">
+            <input type="text" id="new-username" value="{{ user.username }}" class="name-input">
+            <div class="form-buttons">
+                <button class="save-name-btn" id="save-name-btn">Сохранить</button>
+                <button class="cancel-name-btn" id="cancel-name-btn">Отмена</button>
+            </div>
+        </div>
+
+        <p class="profile-id">ID {{ user.id }}</p>
+
+        <div class="profile-info">
+            <div class="info-row">
+                <span class="info-label">Роль</span>
+                <div class="role-badge">
+                    <span class="info-value">Пользователь</span>
+                </div>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Эл. почта</span>
+                <div class="info-value-wrapper">
+                    <span class="info-value" id="email-value">{{ user.email }}</span>
+                    <button class="toggle-visibility-btn" id="toggle-email-btn">
+                        <img src="{% static 'myapp/images/eye-off.png' %}" alt="👁">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="profile-right">
+        <div class="activity-section">
+            <h3 class="section-title">Активность</h3>
+            <div class="activity-list">
+                <a href="{% url 'solved' %}" class="activity-item">
+                    <div class="activity-icon">
+                        <img src="{% static 'myapp/images/checkmark-circle.png' %}" alt="✓">
+                    </div>
+                    <span class="activity-text">Выполненные задания</span>
+                    <div class="activity-arrow">
+                        <img src="{% static 'myapp/images/chevron-white.png' %}" alt="→">
+                    </div>
+                </a>
+                <a href="{% url 'favorites' %}" class="activity-item">
+                    <div class="activity-icon">
+                        <img src="{% static 'myapp/images/bookmark.png' %}" alt="☆">
+                    </div>
+                    <span class="activity-text">Избранные материалы</span>
+                    <div class="activity-arrow">
+                        <img src="{% static 'myapp/images/chevron-white.png' %}" alt="→">
+                    </div>
+                </a>
+                <a href="{% url 'read' %}" class="activity-item">
+                    <div class="activity-icon">
+                        <img src="{% static 'myapp/images/book.png' %}" alt="📖">
+                    </div>
+                    <span class="activity-text">Прочитанные статьи</span>
+                    <div class="activity-arrow">
+                        <img src="{% static 'myapp/images/chevron-white.png' %}" alt="→">
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-list">
+                <div class="settings-item">
+                    <div class="settings-icon">
+                        <img src="{% static 'myapp/images/settings.png' %}" alt="⚙">
+                    </div>
+                    <span class="settings-text">Настройки</span>
+                    <div class="settings-arrow">
+                        <img src="{% static 'myapp/images/chevron-white.png' %}" alt="→">
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon">
+                        <img src="{% static 'myapp/images/shield-checkmark.png' %}" alt="🛡">
+                    </div>
+                    <span class="settings-text">Смена пароля</span>
+                    <div class="settings-arrow">
+                        <img src="{% static 'myapp/images/chevron-white.png' %}" alt="→">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    const csrftoken = getCookie('csrftoken');
+    const userId = {{ user.id }};
+    
+    // Редактирование имени
+    const editNameBtn = document.getElementById('edit-name-btn');
+    const profileName = document.getElementById('profile-name');
+    const editNameForm = document.getElementById('edit-name-form');
+    const newUsernameInput = document.getElementById('new-username');
+    const saveNameBtn = document.getElementById('save-name-btn');
+    const cancelNameBtn = document.getElementById('cancel-name-btn');
+    
+    editNameBtn.addEventListener('click', () => {
+        profileName.style.display = 'none';
+        editNameBtn.style.display = 'none';
+        editNameForm.style.display = 'flex';
+    });
+    
+    cancelNameBtn.addEventListener('click', () => {
+        profileName.style.display = 'block';
+        editNameBtn.style.display = 'inline-flex';
+        editNameForm.style.display = 'none';
+        newUsernameInput.value = profileName.textContent;
+    });
+    
+    saveNameBtn.addEventListener('click', async () => {
+        const newUsername = newUsernameInput.value.trim();
+        if (!newUsername) return;
+        
+        const response = await fetch(`/api/users/${userId}/`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({ username: newUsername })
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            profileName.textContent = data.username;
+            cancelNameBtn.click();
+        } else {
+            alert('Ошибка при сохранении имени');
+        }
+    });
+    
+    // Смена аватара
+    const editAvatarBtn = document.getElementById('edit-avatar-btn');
+    const avatarUpload = document.getElementById('avatar-upload');
+    const avatarImg = document.getElementById('avatar-img');
+    
+    editAvatarBtn.addEventListener('click', () => avatarUpload.click());
+    
+    avatarUpload.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const formData = new FormData();
+        formData.append('icon', file);
+        
+        const response = await fetch(`/api/users/${userId}/`, {
+            method: 'PATCH',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: formData
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            avatarImg.src = data.icon;
+        } else {
+            alert('Ошибка при загрузке аватара');
+        }
+    });
+    
+    // Скрытие/показ почты
+    const toggleEmailBtn = document.getElementById('toggle-email-btn');
+    const emailValue = document.getElementById('email-value');
+    let isEmailHidden = false;
+    const originalEmail = emailValue.textContent;
+    
+    toggleEmailBtn.addEventListener('click', () => {
+        isEmailHidden = !isEmailHidden;
+        if (isEmailHidden) {
+            emailValue.textContent = '••••••••';
+            toggleEmailBtn.querySelector('img').src = '/static/myapp/images/eye.png';
+        } else {
+            emailValue.textContent = originalEmail;
+            toggleEmailBtn.querySelector('img').src = '/static/myapp/images/eye-off.png';
+        }
+    });
+</script>
+{% endblock %}

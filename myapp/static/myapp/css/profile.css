@@ -1,0 +1,376 @@
+.profile-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 60px;
+    background: #ffffff;
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+/* ===== ЛЕВАЯ КОЛОНКА: КАРТОЧКА ПРОФИЛЯ ===== */
+.profile-card {
+    width: 380px;
+    flex-shrink: 0;
+    padding: 30px 20px;
+    border: 3px solid #c0e0ff;
+    background: rgba(192, 224, 255, 0.45);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-avatar {
+    position: relative;
+    width: 140px;
+    height: 140px;
+}
+
+.avatar-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #c0e0ff;
+}
+
+.edit-avatar-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 34px;
+    height: 34px;
+    background: #8fa0d8;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.edit-avatar-btn img {
+    width: 16px;
+    height: 16px;
+}
+
+.edit-avatar-btn:hover {
+    background: #6a7cc0;
+    transform: scale(1.05);
+}
+
+.profile-name-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 600;
+    color: #8fa0d8;
+    margin: 0;
+}
+
+.edit-name-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.edit-name-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.edit-name-btn:hover {
+    opacity: 1;
+}
+
+.edit-name-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.name-input {
+    padding: 8px 14px;
+    font-size: 16px;
+    border: 2px solid #c0e0ff;
+    border-radius: 10px;
+    text-align: center;
+    width: 220px;
+    font-family: 'Geologica', sans-serif;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.save-name-btn, .cancel-name-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'Geologica', sans-serif;
+    border: none;
+}
+
+.save-name-btn {
+    background: #8fa0d8;
+    color: white;
+}
+
+.save-name-btn:hover {
+    background: #6a7cc0;
+}
+
+.cancel-name-btn {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.cancel-name-btn:hover {
+    background: #ccc;
+}
+
+.profile-id {
+    font-size: 18px;
+    font-weight: 400;
+    color: #8fa0d8;
+    margin: 0;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 12px;
+}
+
+.info-label {
+    font-size: 13px;
+    font-weight: 400;
+    color: #b0b8d8;
+    text-transform: lowercase;
+}
+
+.info-value-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 4px 14px;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: 400;
+    color: #9b9b9b;
+    flex: 1;
+}
+
+.role-badge {
+    background: #c0e0ff;
+    padding: 0;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.role-badge .info-value-wrapper {
+    background: #c0e0ff;
+    padding: 6px 16px;
+}
+
+.role-badge .info-value {
+    color: #ffffff;
+    font-size: 16px;
+    padding-left: 8px;
+}
+
+.toggle-visibility-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    flex-shrink: 0;
+}
+
+.toggle-visibility-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===== ПРАВАЯ КОЛОНКА: АКТИВНОСТЬ И НАСТРОЙКИ ===== */
+.profile-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.activity-section {
+    background: #ffffff;
+    border: 2px solid #c0e0ff;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 8px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #8fa0d8;
+    margin: 0;
+    padding: 16px 16px 12px;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 8px 8px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #c0e0ff;
+    border: none;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.activity-item:hover {
+    background: #b0d0f8;
+    transform: translateX(4px);
+}
+
+.activity-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-icon img {
+    width: 28px;
+    height: 28px;
+}
+
+.activity-text {
+    flex: 1;
+    font-size: 22px;
+    font-weight: 400;
+    color: #ffffff;
+}
+
+.activity-arrow {
+    flex-shrink: 0;
+}
+
+.activity-arrow img {
+    width: 22px;
+    height: 22px;
+}
+
+/* ===== НАСТРОЙКИ ===== */
+.settings-section {
+    margin-top: 0;
+}
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.settings-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #ffffff;
+    border: 2px solid #c0e0ff;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.settings-item:hover {
+    border-color: #8fa0d8;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(143, 160, 216, 0.15);
+}
+
+.settings-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.settings-icon img {
+    width: 28px;
+    height: 28px;
+}
+
+.settings-text {
+    flex: 1;
+    font-size: 22px;
+    font-weight: 400;
+    color: #c0e0ff;
+}
+
+.settings-arrow {
+    flex-shrink: 0;
+}
+
+.settings-arrow img {
+    width: 22px;
+    height: 22px;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 900px) {
+    .profile-page {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 30px;
+    }
+    
+    .profile-card {
+        width: 100%;
+        max-width: 380px;
+    }
+    
+    .profile-right {
+        width: 100%;
+    }
+}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Материалы для подготовки{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/materials2.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/cards.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="materials-container">
+
+    <div class="filters-bar">
+        <div class="filter-group">
+            <span class="filter-label">Сортировка:</span>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label" id="type-filter">Тип материала</span>
+            <div class="select-wrapper">
+                <select class="filter-select">
+                    <option value="types_all" selected>Все типы</option>
+                    {% for t in types %}
+                        <option value="{{t}}">{{t}}</option>
+                    {% endfor %}
+                </select>
+                <span class="select-arrow"></span>
+            </div>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label" id="olympiad-filter">Олимпиада</span>
+            <div class="select-wrapper">
+                <select class="filter-select">
+                    <option value="olympiads_all" selected>Все олимпиады</option>
+                    {% for o in olympiads %}
+                        <option value="{{o.olympiad_name }}">{{o.olympiad_name}}</option>
+                    {% endfor %}
+                </select>
+                <span class="select-arrow"></span>
+            </div>
+        </div>
+    </div>
+
+    {% if query %}
+        <p style="color: var(--dark-blue); font-size: 16px; margin-bottom: 16px;">
+            Результаты поиска: «{{ query }}»
+        </p>
+    {% endif %}
+
+    <div class="materials-list">
+        {% for card in cards %}
+            {% include 'cards.html' with card=card %}
+        {% empty %}
+            <p>Материалы не найдены</p>
+        {% endfor %}
+    </div>
+</div>
+<div class="step-buttons">
+    <button type="button" class="back-btn" onclick="history.back()">← Назад</button>
+</div>
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% static 'myapp/js/materials.js' %}"></script>
+{% endblock %}

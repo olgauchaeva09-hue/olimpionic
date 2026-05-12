@@ -1,0 +1,479 @@
+/* planner.css */
+/* Полностью интегрирован с main.css */
+
+/* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
+.planner-container {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    background: var(--gray-bg);
+    min-height: calc(100vh - 200px);
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* ===== ЛЕВАЯ ПАНЕЛЬ (САЙДБАР) ===== */
+.sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--blue);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: calc(100vh - 200px);
+    position: sticky;
+    top: 24px;
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--blue);
+    background: #f8faff;
+}
+
+.sidebar-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark-blue);
+    margin-bottom: 8px;
+}
+
+.sidebar-hint {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+/* Группа предметов */
+.subject-group {
+    margin-bottom: 24px;
+}
+
+.subject-group:last-child {
+    margin-bottom: 0;
+}
+
+.subject-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark-blue);
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--blue);
+}
+
+.subject-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Элементы в сайдбаре (темы, карточки) */
+.sidebar-item {
+    padding: 10px 12px;
+    background: var(--white);
+    border: 1px solid var(--blue);
+    border-radius: 10px;
+    cursor: grab;
+    transition: var(--transition);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-item:hover {
+    background: #f8faff;
+    border-color: var(--dark-blue);
+    transform: translateX(2px);
+}
+
+.sidebar-item:active {
+    cursor: grabbing;
+}
+
+.sidebar-item.dragging {
+    opacity: 0.4;
+    cursor: grabbing;
+}
+
+/* Распределённые элементы (ожидают) */
+.distributed-item {
+    background: rgba(143, 160, 216, 0.05);
+    border-color: #c0e0ff;
+}
+
+.item-title {
+    flex: 1;
+    line-height: 1.4;
+}
+
+/* Кнопка удаления из сайдбара */
+.remove-item-btn {
+    width: 22px;
+    height: 22px;
+    background: none;
+    border: none;
+    color: #dcdad9;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-item-btn:hover {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+}
+
+/* Пустое состояние сайдбара */
+.empty-sidebar {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.empty-hint {
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+/* ===== ПЛАНИРОВЩИК (СЕТКА) ===== */
+.planner-grid-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--blue);
+    position: relative;
+    min-width: 0;
+}
+
+/* Заголовок сетки */
+.grid-header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 10;
+    border-bottom: 2px solid var(--blue);
+}
+
+.time-column {
+    width: 80px;
+    flex-shrink: 0;
+    padding: 16px 12px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark-blue);
+    background: #f8faff;
+    border-right: 1px solid var(--blue);
+    text-align: center;
+}
+
+.date-column {
+    flex: 1;
+    min-width: 90px;
+    padding: 12px 8px;
+    text-align: center;
+    border-left: 1px solid var(--blue);
+}
+
+.date-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.date-weekday {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark-blue);
+}
+
+.date-day {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 400;
+}
+
+/* Бейджи олимпиад */
+.olympiad-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.olympiad-badge {
+    font-size: 9px;
+    color: var(--white);
+    background: var(--dark-blue);
+    padding: 2px 6px;
+    border-radius: 12px;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/* Подсветка колонки с олимпиадой */
+.date-column.has-olympiad {
+    background: rgba(143, 160, 216, 0.04);
+    border-left: 2px solid var(--dark-blue);
+}
+
+/* Тело сетки */
+.grid-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-row {
+    display: flex;
+    border-top: 1px solid var(--blue);
+    min-height: 70px;
+}
+
+.time-cell {
+    width: 80px;
+    flex-shrink: 0;
+    padding: 12px 8px;
+    text-align: center;
+    background: #fafafa;
+    border-right: 1px solid var(--blue);
+    font-size: 13px;
+    color: #9b9b9b;
+    font-weight: 400;
+}
+
+/* Ячейка сетки */
+.grid-cell {
+    flex: 1;
+    min-width: 90px;
+    border-left: 1px solid var(--blue);
+    background: var(--white);
+    transition: background 0.2s;
+    position: relative;
+}
+
+/* Подсветка при перетаскивании */
+.grid-cell.drag-over {
+    background: rgba(143, 160, 216, 0.12);
+}
+
+/* Запланированный элемент */
+.scheduled-item {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    background: var(--dark-blue);
+    border-radius: 8px;
+    padding: 6px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    transition: box-shadow 0.2s;
+    z-index: 5;
+}
+
+.scheduled-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.scheduled-content {
+    flex: 1;
+    overflow: hidden;
+}
+
+.scheduled-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--white);
+    display: block;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+/* Кнопка удаления в сетке */
+.remove-schedule-btn {
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.remove-schedule-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Пустое состояние поверх сетки */
+.grid-empty-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+/* ===== СКРОЛЛБАР ===== */
+.sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background: var(--blue);
+    border-radius: 3px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background: var(--dark-blue);
+    border-radius: 3px;
+}
+
+.planner-grid-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.planner-grid-wrapper::-webkit-scrollbar-track {
+    background: var(--blue);
+    border-radius: 4px;
+}
+
+.planner-grid-wrapper::-webkit-scrollbar-thumb {
+    background: var(--dark-blue);
+    border-radius: 4px;
+}
+
+/* ===== НАВИГАЦИЯ ПО НЕДЕЛЯМ ===== */
+.week-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--blue);
+    background: #f8faff;
+}
+
+.week-nav-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--blue);
+    border-radius: 50%;
+    background: var(--white);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--dark-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: var(--transition);
+}
+
+.week-nav-btn:hover {
+    background: var(--dark-blue);
+    color: var(--white);
+    border-color: var(--dark-blue);
+}
+
+.week-range {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark-blue);
+    min-width: 100px;
+    text-align: center;
+}
+
+.sortable-ghost {
+    opacity: 0.3;
+    background: var(--blue) !important;
+}
+
+.sortable-drag {
+    opacity: 0.8;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 1200px) {
+    .planner-container {
+        flex-direction: column;
+        padding: 16px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        position: static;
+    }
+    
+    .time-column {
+        width: 60px;
+    }
+    
+    .date-column {
+        min-width: 70px;
+    }
+    
+    .scheduled-title {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        max-height: 250px;
+    }
+    
+    .time-column {
+        width: 50px;
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+    
+    .date-header {
+        font-size: 11px;
+    }
+    
+    .grid-row {
+        min-height: 55px;
+    }
+    
+    .scheduled-item {
+        padding: 3px 5px;
+    }
+    
+    .scheduled-title {
+        font-size: 8px;
+    }
+}

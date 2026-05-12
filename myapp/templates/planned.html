@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Расписание{% endblock %}
+
+{% load dict_filters %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/planned.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="planner-container">
+    
+    <!-- ===== ЛЕВАЯ ПАНЕЛЬ ===== -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Ожидают распределения</h3>
+            <p class="sidebar-hint">Перетащите тему или карточку в сетку, чтобы запланировать</p>
+        </div>
+        
+        <div class="sidebar-content" id="sidebar-content">
+            {% for subject_name, items in sidebar_items.items %}
+                <div class="subject-group">
+                    <h4 class="subject-title">{{ subject_name }}</h4>
+                    <div class="subject-topics">
+                        {% for item in items %}
+                            <div class="sidebar-item {% if item.is_card %}card-item{% else %}topic-item{% endif %}" 
+                                 data-source-id="{{ item.source_id }}" 
+                                 data-type="{{ item.item_type }}"
+                                 data-title="{{ item.title }}"
+                                 data-planned-id="{{ item.planned_id }}"
+                                 draggable="true">
+                                <span class="item-type-badge">{{ item.type_label }}</span>
+                                <span class="item-title">{{ item.title }}</span>
+                                <button class="remove-item-btn" data-id="{{ item.planned_id }}" title="Удалить">×</button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-sidebar">
+                    <p>Нет тем для планирования</p>
+                    <p class="empty-hint">Выберите темы на предыдущих шагах или добавьте карточки из материалов</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- ===== ПЛАНИРОВЩИК: СЕТКА ===== -->
+    <div class="planner-grid-wrapper">
+        <!-- Навигация по неделям -->
+        <!-- Навигация по неделям -->
+        <div class="week-navigation">
+            <button class="week-nav-btn" id="prev-week-btn" title="Предыдущая неделя">‹</button>
+            <span class="week-range" id="week-range">{{ week_start|date:"d.m" }} – {{ week_end|date:"d.m" }}</span>
+            <button class="week-nav-btn" id="next-week-btn" title="Следующая неделя">›</button>
+        </div>
+        <!-- Заголовок с датами -->
+        <div class="grid-header">
+            <div class="time-column">Время</div>
+            {% for date in dates %}
+                {% with date_str=date|date:'Y-m-d' %}
+                    <div class="date-column {% if olympiad_by_date|get_item:date_str %}has-olympiad{% endif %}" 
+                         data-date="{{ date_str }}">
+                        <div class="date-header">
+                            <span class="date-weekday">{{ date|date:"l" }}</span>
+                            <span class="date-day">{{ date|date:"d.m" }}</span>
+                        </div>
+                        {% if olympiad_by_date|get_item:date_str %}
+                            <div class="olympiad-badges">
+                                {% for olympiad in olympiad_by_date|get_item:date_str %}
+                                    <div class="olympiad-badge" title="{{ olympiad.name }}">
+                                        {{ olympiad.name|truncatechars:15 }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+        
+        <!-- Сетка с часами -->
+        <div class="grid-body" id="schedule-grid">
+            {% for hour in hours %}
+                <div class="grid-row" data-hour="{{ hour }}">
+                    <div class="time-cell">
+                        <span class="hour">{{ hour }}:00</span>
+                    </div>
+                    
+                    {% for date in dates %}
+                        {% with date_str=date|date:'Y-m-d' %}
+                            <div class="grid-cell" 
+                                 data-date="{{ date_str }}"
+                                 data-hour="{{ hour }}">
+                                
+                                {% with cell_item=schedule_map|get_item:date_str|get_item:hour %}
+                                    {% if cell_item %}
+                                        <div class="scheduled-item" 
+                                             data-planned-id="{{ cell_item.id }}"
+                                             data-start="{{ cell_item.date_time|date:'Y-m-d H:i' }}"
+                                             data-end="{{ cell_item.end_datetime|date:'Y-m-d H:i' }}">
+                                            <div class="scheduled-content">
+                                                <span class="scheduled-title">
+                                                    {% if cell_item.topic %}
+                                                        {{ cell_item.topic.topic_name }}
+                                                    {% else %}
+                                                        {{ cell_item.card.title|truncatechars:20 }}
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                            <button class="remove-schedule-btn" 
+                                                    data-id="{{ cell_item.id }}" 
+                                                    title="Удалить из расписания">×</button>
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                                
+                            </div>
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+        // CSS для бейджа типа
+        const style = document.createElement('style');
+        style.textContent = `
+            .item-type-badge {
+                display: inline-block;
+                padding: 2px 6px;
+                border-radius: 8px;
+                font-size: 10px;
+                font-weight: 600;
+                margin-right: 6px;
+                flex-shrink: 0;
+            }
+            .item-type-badge.topic { background: #c0e0ff; color: #8FA0D8; }
+            .item-type-badge.card { background: #ffe0c0; color: #d8902a; }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <script src="{% static 'myapp/js/planned.js' %}"></script>
+{% endblock %}

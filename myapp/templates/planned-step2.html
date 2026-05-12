@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Расписание - Олимпиады{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'myapp/css/planned_step2.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'planned_step2' %}">
+    {% csrf_token %}
+    
+    <div class="olympiads-container">
+        <h1 class="page-title">Олимпиады</h1>
+        <p class="page-subtitle">Отметьте актуальное для вас, чтобы настроить страницу планирования</p>
+        
+        <div class="olympiads-list">
+            {% for olympiad in olympiads %}
+                <div class="olympiad-row">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="olympiads" value="{{ olympiad.id }}">
+                        <span class="checkbox-text">{{ olympiad.olympiad_name }}</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" class="notification-checkbox" title="Уведомлять о начале олимпиады" data-olympiad-id="{{ olympiad.id }}"
+                            {% if olympiad.id in subscribed_ids %}checked{% endif %}>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="step-buttons">
+        <button type="button" class="back-btn" onclick="history.back()">← Назад</button>
+        <button type="submit" class="confirm-btn">Далее →</button>
+    </div>
+</form>
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% static 'myapp/js/planned_step2.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,179 @@
+/* ===== planned_step2.css ===== */
+/* Полностью интегрирован с main.css */
+
+.olympiads-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    width: 100%;
+}
+
+/* --- Заголовки --- */
+.page-title {
+    color: var(--dark-blue);
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.page-subtitle {
+    color: #9B9B9B;
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
+
+/* --- Список олимпиад --- */
+.olympiads-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 48px;
+}
+
+/* Одна строка: чекбокс + текст + тумблер */
+.olympiad-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(192, 224, 255, 0.3);
+    transition: var(--transition);
+}
+
+.olympiad-row:hover {
+    background-color: rgba(192, 224, 255, 0.05);
+}
+
+/* Чекбокс выбора олимпиады */
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.checkbox-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 35px;
+    height: 35px;
+    border: 3px solid var(--dark-blue);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.checkbox-item input[type="checkbox"]:hover {
+    border-color: #6A80C0;
+    background-color: rgba(143, 160, 216, 0.1);
+}
+
+.checkbox-item input[type="checkbox"]:checked {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+}
+
+.checkbox-item input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 4px;
+    width: 9px;
+    height: 18px;
+    border: solid var(--white);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    color: var(--dark-blue);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.4;
+    flex: 1;
+}
+
+/* --- Тумблер уведомлений --- */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #DCDAD9;
+    border-radius: 26px;
+    transition: var(--transition);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--white);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: var(--dark-blue);
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+/* === Кнопки навигации === */
+.step-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    margin-bottom: 40px;
+    padding: 24px 0 0;
+    border-top: 2px solid rgba(192, 224, 255, 0.4);
+}
+
+.back-btn,
+.confirm-btn {
+    background: none;
+    border: none;
+    color: var(--dark-blue);
+    font-size: 22px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Geologica', sans-serif;
+    padding: 10px 20px;
+    transition: opacity 0.2s;
+}
+
+.back-btn:hover,
+.confirm-btn:hover {
+    opacity: 0.7;
+}
