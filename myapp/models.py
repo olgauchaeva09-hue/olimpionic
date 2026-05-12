@@ -7,13 +7,12 @@ class Role(models.Model):
         db_table = 'Role'
 
 def get_default_role():
-    role, created = Role.objects.get_or_create(role_name='user')
-    return role.id
+    return None
 
 class User(AbstractUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=320, unique=True)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name = 'users', default=get_default_role)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='users', default=get_default_role, null=True)
     icon = models.ImageField(upload_to='images/', default='images/default_avatar.png')
     xp = models.IntegerField(default=0)
     groups = models.ManyToManyField(
